@@ -62,7 +62,7 @@ window.onload = function () {
             tile.id = r.toString() + "-" + c.toString();
 
             // Assign image source based on shuffled array
-            tile.src = imgOrder.shift() + ".jpg";
+            tile.src = imgOrder.shift() + ".JPG";
 
             // Add drag-and-drop event listeners
             tile.addEventListener("dragstart", dragStart);   // When drag starts
