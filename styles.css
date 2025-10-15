@@ -246,22 +246,21 @@ ul li {
     box-shadow: 0 4px 8px rgb(62, 62, 84);
 }
 #game {
-    margin: 1rem 0;
-    width: 360px;
-    height: 360px;
-    margin: 0 auto;
-    border: 5px double rgb(193, 0, 42);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 0;
+  width: 270px;
+  height: 270px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 90px);
+  grid-template-rows: repeat(3, 90px);
+  gap: 2px;
 }
+
 #game img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    border: 1px solid rgb(193, 0, 42);
-    box-sizing: border-box;
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  cursor: grab;
 }
 /* About us */
 .gallery{
