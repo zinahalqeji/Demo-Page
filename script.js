@@ -62,7 +62,7 @@ window.onload = function () {
             tile.id = r.toString() + "-" + c.toString();
 
             // Assign image source based on shuffled array
-            tile.src = imgOrder.shift() + ".JPG";
+            tile.src = "1.jpg";
             console.log("Billedsti:", tile.src);
 
             tile.onerror = function () {
