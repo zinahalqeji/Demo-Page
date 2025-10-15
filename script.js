@@ -42,78 +42,58 @@ setInterval(changeImage, 5000);
 // Puzzle Game Logic
 // ================================
 
-var rows = 3;
-var columns = 3;
-var currTile;   // Currently dragged tile
-var otherTile;  // Target tile where drop happens
+const rows = 3;
+const cols = 3;
+const game = document.getElementById("game");
+const positions = [];
 
-// Initial scrambled image order
-var imgOrder = ["7", "4", "1", "9", "2", "6", "5", "3", "8"];
-
-let turns = 0; // Count the number of moves
-
-// Create game board on page load
-window.onload = function () {
-    for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < columns; c++) {
-            let tile = document.createElement("img");
-
-            // Assign ID to tile based on grid position (e.g., "0-1")
-            tile.id = r.toString() + "-" + c.toString();
-
-            // Assign image source based on shuffled array
-            tile.src = imgOrder.shift() + ".jpg";
-
-            // Add drag-and-drop event listeners
-            tile.addEventListener("dragstart", dragStart);   // When drag starts
-            tile.addEventListener("dragover", dragOver);     // While hovering
-            tile.addEventListener("dragenter", dragEnter);   // When entering another tile
-            tile.addEventListener("dragleave", dragLeave);   // (Optional)
-            tile.addEventListener("drop", dragDrop);         // When drop happens
-            tile.addEventListener("dragend", dragEnd);       // After drag ends
-
-            // Add tile to the game board
-            document.getElementById("game").append(tile);
-        }
-    }
-};
-
-// Called when dragging starts
-function dragStart(e) {
-    currTile = this;
+// Lav alle koordinater (0,0), (0,1)...(2,2)
+for (let r = 0; r < rows; r++) {
+  for (let c = 0; c < cols; c++) {
+    positions.push({ row: r, col: c });
+  }
 }
 
-// Allow dropping
-function dragOver(e) {
+// Bland positionerne
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+shuffle(positions);
+
+// Lav felter med korrekt baggrund
+positions.forEach((pos, index) => {
+  const tile = document.createElement("div");
+  tile.classList.add("tile");
+  tile.draggable = true;
+  tile.dataset.position = `${pos.row}-${pos.col}`;
+
+  // Positionér baggrunden for at vise korrekt udsnit
+  tile.style.backgroundPosition = `-${pos.col * 120}px -${pos.row * 120}px`;
+
+  game.appendChild(tile);
+});
+
+// Drag & drop logik
+let currentTile = null;
+
+document.querySelectorAll(".tile").forEach(tile => {
+  tile.addEventListener("dragstart", function () {
+    currentTile = this;
+  });
+
+  tile.addEventListener("dragover", function (e) {
     e.preventDefault();
-}
+  });
 
-// Allow entering another tile
-function dragEnter(e) {
-    e.preventDefault();
-}
+  tile.addEventListener("drop", function () {
+    if (currentTile === this) return;
 
-// Not used, but could be used to style tiles on leave
-function dragLeave(e) {}
-
-// Swap the two tiles (images) when drop occurs
-function dragDrop(e) {
-    otherTile = this;
-
-    // Swap image sources between current and target tiles
-    let currImg = currTile.src;
-    let otherImg = otherTile.src;
-
-    currTile.src = otherImg;
-    otherTile.src = currImg;
-
-    // Increment move count
-    turns += 1;
-    document.getElementById("turns").innerText = turns;
-}
-
-// Reset current tiles after drag ends
-function dragEnd(e) {
-    currTile = null;
-    otherTile = null;
-}
+    // Swap baggrunde
+    let temp = this.style.backgroundPosition;
+    this.style.backgroundPosition = currentTile.style.backgroundPosition;
+    currentTile.style.backgroundPosition = temp;
+  });
+});
