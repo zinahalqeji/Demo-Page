@@ -63,6 +63,11 @@ window.onload = function () {
 
             // Assign image source based on shuffled array
             tile.src = imgOrder.shift() + ".JPG";
+            console.log("Billedsti:", tile.src);
+
+            tile.onerror = function () {
+                console.error("Kunne ikke loade billede:", tile.src);
+            };
 
             // Add drag-and-drop event listeners
             tile.addEventListener("dragstart", dragStart);   // When drag starts
