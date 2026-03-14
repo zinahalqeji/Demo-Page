@@ -39,12 +39,12 @@ This project requires a modern web browser to run. No additional dependencies or
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/zinahalqeji/DemoPage.git
+   git clone https://github.com/zinahalqeji/Demo-Page.git
    ```
 
 2. **Navigate to the project directory:**
    ```bash
-   cd DemoPage
+   cd Demo-Page
    ```
 3. **Open `index.html`in your preferred web browser.**
 
