@@ -19,6 +19,32 @@
     </script>
 
     <style>
+        .model-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 25px 0;
+}
+
+.model-buttons button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #c90032;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.model-buttons button:hover {
+    opacity: 0.85;
+}
+
+#model-title {
+    text-align: center;
+    margin-top: 20px;
+}
         .model-section {
             max-width: 1100px;
             margin: 40px auto;
@@ -122,13 +148,34 @@
         gestures to zoom.
     </p>
 
-    <model-viewer
-        src="3DModel/wounded_hand.glb"
-        alt="Interactive 3D model of a wounded hand"
-        camera-controls
-        auto-rotate
-        shadow-intensity="1">
-    </model-viewer>
+    <div class="model-buttons">
+    <button onclick="changeModel('3DModel/a_human_belly_with_g_0214221227_texture.glb', 'Human Belly')">
+        Human Belly
+    </button>
+
+    <button onclick="changeModel('3DModel/burned_human_face__0217152725_texture.glb', 'Burned Face')">
+        Burned Face
+    </button>
+
+    <button onclick="changeModel('3DModel/wounded_hand.glb', 'Wounded Hand')">
+        Wounded Hand
+    </button>
+
+    <button onclick="changeModel('3DModel/wounded_leg__0217152848_texture.glb', 'Wounded Leg')">
+        Wounded Leg
+    </button>
+</div>
+
+<h2 id="model-title">Wounded Hand</h2>
+
+<model-viewer
+    id="medical-model"
+    src="3DModel/wounded_hand.glb"
+    alt="Interactive 3D medical prototype model"
+    camera-controls
+    auto-rotate
+    shadow-intensity="1">
+</model-viewer>
 
     <div class="prototype-note">
         <strong>Prototype notice:</strong>
@@ -138,6 +185,14 @@
     </div>
 
 </section>
+<script>
+    function changeModel(modelPath, modelName) {
+        const viewer = document.getElementById("medical-model");
+        const title = document.getElementById("model-title");
 
+        viewer.src = modelPath;
+        title.textContent = modelName;
+    }
+</script>
 </body>
 </html>
